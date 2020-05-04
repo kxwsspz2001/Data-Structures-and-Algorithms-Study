@@ -14,3 +14,4 @@ class Stack:
         else: return False
     def size(self):
         return len(self.stack)
+
