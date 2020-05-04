@@ -79,6 +79,7 @@ def judge(expression):
     pass
 
 def bracket(expression = None): 
+    """全括号转换"""
     if expression == None: expression = express()
     def pare(str_):
         i=0
@@ -144,14 +145,5 @@ def postfix(infix=None):
 
 
 
-#i = bracket()
-#for item in i:
-#    print(item,end='')
-#print()
-i = prefix()
-for item in i:
-    print(item,end='')
-print()
 
-"(1+2)*3-(4-5)*(6+7)"
-"((1+2)*3-(4-5)*(6+7))"
+
