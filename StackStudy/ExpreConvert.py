@@ -4,8 +4,10 @@ def numb(): pass
 def express():pass
 def judge():pass
 def bracket():pass
-def prefix():pass
-def postfix():pass
+def prefix_normal():pass
+def postfix_normal():pass
+def prefix_stack():pass
+def postfix_stack():pass
 
 def numb(stack):
     """
@@ -116,7 +118,7 @@ def bracket(expression = None):
     pare('+-')
     return expression
 
-def prefix(infix=None,char_1='(',char_2=')'):
+def prefix_normal(infix=None,char_1='(',char_2=')'):
     """前缀"""
     if infix == None: infix = bracket()
     #for item in infix:
@@ -138,12 +140,43 @@ def prefix(infix=None,char_1='(',char_2=')'):
         else: i+=1
     return infix
 
-def postfix(infix=None):
+def postfix_normal(infix=None):
     """后缀"""
     if infix == None: infix = bracket()    
-    return prefix(infix[::-1],')','(')[::-1]
+    return prefix_normal(infix[::-1],')','(')[::-1]
 
+def prefix_stack(infix=None):
+    if infix == None: infix = express()
+    expression = []
+    opstack = Stack()
+    for item in infix[::-1]:
+        if str(item) in '+-*/)': opstack.push(item)  
+        elif item == '(':
+            while not opstack.isEmpty():
+                if not opstack.peek() in "()": expression.append(opstack.pop())
+                else: opstack.pop()
+        else: expression.append(item)
+    del opstack
+    return expression[::-1]
 
-
-
-
+def postfix_stack(infix=None):
+    priority ={'+':1,'-':1,'*':2,'/':2}
+    if infix == None: infix = express()
+    expression = []
+    opstack = Stack()
+    for item in infix:
+        if str(item) in '+-*/': 
+            if opstack.peek() == '(': opstack.push(item)
+            elif priority[opstack.peek()] > priority[item]:
+                expression.append(opstack.pop())
+                opstack.push(item)
+            else: opstack.push(item)
+        elif item == '(': opstack.push(item)
+        elif item == ')':
+            while opstack.peek() != "(": expression.append(opstack.pop())              
+        else: expression.append(item)
+    while not opstack.isEmpty(): 
+        item = opstack.pop()
+        if not item in"()": expression.append(item)
+    del opstack
+    return expression
