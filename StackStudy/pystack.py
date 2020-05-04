@@ -1,17 +1,18 @@
 class Stack:
-    def __init__(self):
-        self.stack = []
+    def __init__(self,stack = []):
+        self.stack_ = list(stack)[::-1]
     def push(self,item):
-        self.stack.append(item)
+        self.stack_.append(item)
     def pop(self):
-        top = self.stack[-1]
-        del self.stack[-1]
+        top = self.stack_[-1]
+        del self.stack_[-1]
         return top
     def peek(self):
-        return self.stack[-1]
+        if not self.isEmpty(): return self.stack_[-1]
     def isEmpty(self):
-        if len(self.stack) == 0: return True
+        if len(self.stack_) == 0: return True
         else: return False
     def size(self):
-        return len(self.stack)
+        return len(self.stack_)
+
 
