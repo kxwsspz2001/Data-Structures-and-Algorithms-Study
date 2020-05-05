@@ -1,6 +1,6 @@
 class Stack:
     def __init__(self,stack = []):
-        self.stack_ = list(stack)[::-1]
+        self.stack_ = list(stack)
     def push(self,item):
         self.stack_.append(item)
     def pop(self):
